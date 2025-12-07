@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(home: GifTimerExample()));
+}
+
+class GifTimerExample extends StatefulWidget {
+  @override
+  _GifTimerExampleState createState() => _GifTimerExampleState();
+}
+
+class _GifTimerExampleState extends State<GifTimerExample> {
+  bool showGif = true;
+  final int maxSeconds = 15;
+
+  @override
+  void initState() {
+    super.initState();
+    // Timer for 15 seconds
+    Future.delayed(Duration(seconds: maxSeconds), () {
+      setState(() {
+        showGif = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("GIF Timer Example")),
+      body: Center(
+        child: showGif
+            ? Image.asset(
+                'assets/personing_running.gif', // Make sure this GIF is in assets folder
+                width: 250,
+                height: 250,
+              )
+            : Text(
+                "Running time has been over!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
+      ),
+    );
+  }
+}
